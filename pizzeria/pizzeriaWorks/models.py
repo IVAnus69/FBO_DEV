@@ -6,6 +6,9 @@ class PizzaType(models.Model):
     id = models.AutoField('ID', primary_key=True)
     name = models.CharField('Название', max_length=50)
 
+    def __str__(self):
+        return self.name
+
 
 class Pizza(models.Model):
     id = models.AutoField('ID', primary_key=True)
@@ -15,12 +18,17 @@ class Pizza(models.Model):
     description = models.CharField('Описание', max_length=300)
     type_id = models.ForeignKey(PizzaType, on_delete=models.CASCADE)
 
+    def __str__(self):
+        return self.name
+
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     profilePic = models.ImageField('Изображение профиля', upload_to='images/')
     #pizzaRating = models.ManyToManyField(Pizza, through="PizzaRating")
     #basket = models.ManyToManyField(Pizza, through="Basket")
+    def __str__(self):
+        return self.user.username
 
 
 class Basket(models.Model):
