@@ -41,3 +41,8 @@ class PizzaRating(models.Model):
     user_id = models.ForeignKey(Profile, on_delete=models.CASCADE)
     pizza_id = models.ForeignKey(Pizza, on_delete=models.CASCADE)
     rating = models.IntegerField('Рейтинг')
+
+class Specifications(models.Model):
+    pizza_id = models.ForeignKey(Pizza, on_delete=models.CASCADE)
+    title = models.CharField('Заголовок', max_length=100)
+    description = models.CharField('Описание', max_length=300)

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Регистрация и авторизация</title>
+	<style type="text/css">
+		body {
+			font-family: Arial, sans-serif;
+			background-color: #F7F7F7;
+			margin: 0;
+			padding: 0;
+		}
+		.container {
+			max-width: 500px;
+			margin: 0 auto;
+			padding: 20px;
+			background-color: #FFFFFF;
+			box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+		}
+		h1 {
+			text-align: center;
+			margin-top: 0;
+		}
+		form {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+		}
+		input[type="text"], input[type="password"] {
+			width: 100%;
+			padding: 12px 20px;
+			margin: 8px 0;
+			box-sizing: border-box;
+			border: 2px solid #ccc;
+			border-radius: 4px;
+			background-color: #f8f8f8;
+			font-size: 16px;
+			resize: vertical;
+		}
+		input[type="submit"] {
+			background-color: #4CAF50;
+			color: #FFFFFF;
+			padding: 12px 20px;
+			margin: 8px 0;
+			border: none;
+			border-radius: 4px;
+			cursor: pointer;
+			font-size: 16px;
+		}
+		input[type="submit"]:hover {
+			background-color: #45a049;
+		}
+		span {
+			color: red;
+			font-size: 14px;
+			margin-top: 5px;
+			text-align: center;
+			display: block;
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<h1>Регистрация и авторизация</h1>
+		<form id="registration-form" action="#" method="post">
+			<h2>Регистрация</h2>
+			<label for="reg-username">Имя пользователя</label>
+			<input type="text" id="reg-username" name="reg-username" required>
+			<label for="reg-email">Email</label>
+			<input type="text" id="reg-email" name="reg-email" required>
+			<label for="reg-password">Пароль</label>
+			<input type="password" id="reg-password" name="reg-password" required>
+			<label for="reg-confirm-password">Подтверждение пароля</label>
+			<input type="password" id="reg-confirm-password" name="reg-confirm-password" required>
+			<input type="submit" value="Зарегистрироваться">
+			<span id="reg-error"></span>
+		</form>
+		<form id="login-form" action="#" method="post">
+			<h2>Авторизация</h2>
+			<label for="login-email">Email</label>
+			<input type="text" id="login-email" name="login-email" required>
+			<label for="login-password">Пароль</label>
+			<input type="password" id="login-password" name="login-password" required>
+            <input type="submit" value="Войти">
+            <span id="login-error"></span>
+        </form>
+    </div>
+</body>
+</html>
