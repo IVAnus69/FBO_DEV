@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+{% extends 'base.html' %}
+{% block title %}Регистрация{% endblock title %}
+
+{% block content %}
+<h2>Регистрация</h2>
+    <form method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
+      {% for field in form %}
+        <p>
+        {{ field.label_tag }}<br>
+        {{ field }}
+        </p>
+      {% endfor %}
+        <button type="submit">Регистрация</button>
+    </form>
+{% endblock content %}

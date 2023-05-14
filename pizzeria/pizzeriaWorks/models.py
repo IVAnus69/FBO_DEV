@@ -24,9 +24,8 @@ class Pizza(models.Model):
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    profilePic = models.ImageField('Изображение профиля', upload_to='images/')
-    #pizzaRating = models.ManyToManyField(Pizza, through="PizzaRating")
-    #basket = models.ManyToManyField(Pizza, through="Basket")
+    profilePic = models.ImageField('Изображение профиля', upload_to='images/', blank=True, null=True)
+
     def __str__(self):
         return self.user.username
 
@@ -41,6 +40,7 @@ class PizzaRating(models.Model):
     user_id = models.ForeignKey(Profile, on_delete=models.CASCADE)
     pizza_id = models.ForeignKey(Pizza, on_delete=models.CASCADE)
     rating = models.IntegerField('Рейтинг')
+
 
 class Specifications(models.Model):
     pizza_id = models.ForeignKey(Pizza, on_delete=models.CASCADE)
