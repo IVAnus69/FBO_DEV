@@ -1,5 +1,3 @@
-from tkinter import PhotoImage
-
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse, Http404
@@ -7,7 +5,6 @@ from django.core.files.storage import FileSystemStorage
 from django.contrib import messages
 from .models import Pizza, Specifications, Profile
 from .forms import UserForm, UserLoginForm
-
 
 
 def index(request):

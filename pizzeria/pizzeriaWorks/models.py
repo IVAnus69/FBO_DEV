@@ -46,3 +46,6 @@ class Specifications(models.Model):
     pizza_id = models.ForeignKey(Pizza, on_delete=models.CASCADE)
     title = models.CharField('Заголовок', max_length=100)
     description = models.CharField('Описание', max_length=300)
+
+    def __str__(self):
+        return self.pizza_id.name + ": " + self.description
