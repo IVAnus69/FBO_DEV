@@ -3,9 +3,181 @@
 {% block title %} Товары {% endblock %}
 
 {% block content %}
-    <h1>Товары</h1>
 
-    {% for product in products %}
+	<header id="header" class="header">
+		<div class="container">
+
+			<div class="nav">
+
+				<ul>
+					<li>
+						<a href="#">Меню</a>
+					</li>
+					<li>
+						<a href="#">О нас</a>
+					</li>
+					<li>
+						<a href="tel:+79504182020"><img href="tel:+79504182020" src='media/pizzaImages/icon-phone.svg' alt=""></a>
+						<a href="tel:+79504182020" class="tel">8 (950) 418-20-20</a>
+					</li>
+				</ul>
+
+				<img src="media/pizzaImages/logo.svg" alt="RussianPizza" class="logo">
+
+				<h1 class="name">Russian<br>Pizza</h1>
+
+
+
+
+				{% if user.is_authenticated %}
+				{% if bol is False %}
+				<a href="/profile/"><img src="{{profPic}}" width="60px" alt="RussianPizza" class="avatar"></a>
+				{% else %}
+				<a href="/profile/"><img src="{{ profPic.url }}" alt="RussianPizza" class="avatar"></a>
+				{% endif %}
+				{% else %}
+				<a href="/registration/">Регистрация</a> |
+				<a href="/authentication/">Войти</a></div>
+				{% endif %}
+
+				<h1 class="basket">1280р</h1>
+
+				<a href="#"><img src="media/pizzaImages/arrow-black.svg" alt=""></a>
+
+			</div>
+
+			<div class="slogan">
+
+				<h1 class="slogan1">
+					Из России с любовью
+				</h1>
+
+				<h2 class="slogan2">
+					Первая по-настоящему русская пицца - <br>для тех, кому ближе то, что родное.
+				</h2>
+
+				<button class="slogan-buton">
+					Заказать
+				</button>
+
+			</div>
+
+			<div class="pros">
+				<img src="media/pizzaImages/icon-transportation.svg" alt="">
+
+				<h1>
+					Бесплатная доставка<br> при заказе от 800р.
+				</h1>
+			</div>
+
+			<div class="pros" id="icon-clock">
+				<img src="media/pizzaImages/icon-clock.svg" alt="">
+
+				<h1>
+					За 2 часа в любую точку Красноярска!
+				</h1>
+			</div>
+
+		</div>
+	</header>
+
+	<section id="menu" class="menu">
+
+		<div class="menu-nav">
+
+				<div class="menu-nav-container">
+
+					<img src="media/pizzaImages/logo.svg" alt="" class="menu-logo">
+
+					<h1 class="menu-name">Russian<br>Pizza</h1>
+
+					<ul>
+						<li>
+							<a href="#Пицца"><img src="media/pizzaImages/icon-pizza-slice.svg" alt=""></a>
+							<br>
+							<a href="#Пицца" class="dish-ref">Пицца</a>
+						</li>
+						<li>
+							<a href="#Горячее"><img src="media/pizzaImages/icon-sandwich.svg" alt=""></a>
+							<br>
+							<a href="#Горячее" class="dish-ref">Горячее</a>
+						</li>
+						<li>
+							<a href="#Салаты"><img src="media/pizzaImages/icon-salad.svg" alt=""></a>
+							<br>
+							<a href="#Салаты" class="dish-ref">Салаты</a>
+						</li>
+						<li>
+							<a href="#Десерты"><img src="media/pizzaImages/icon-cake.svg" alt=""></a>
+							<br>
+							<a href="#Десерты" class="dish-ref">Десерты</a>
+						</li>
+						<li>
+							<a href="#Соусы"><img src="media/pizzaImages/icon-sauce.svg" alt=""></a>
+							<br>
+							<a href="#Соусы" class="dish-ref">Соусы</a>
+						</li>
+						<li>
+							<a href="#Напитки"><img src="media/pizzaImages/icon-drink.svg" alt=""></a>
+							<br>
+							<a href="#Напитки" class="dish-ref">Напитки</a>
+						</li>
+					</ul>
+
+					<a href="#"><img src="media/pizzaImages/avatar.svg" alt="RussianPizza" class="menu-avatar"></a>
+
+					<h1 class="menu-basket">1280р</h1>
+
+					<a href="#"><img src="media/pizzaImages/arrow-white.svg" alt=""></a>
+
+				</div>
+
+		</div>
+		<div class="container" id="sections">
+		{% for type in types %}
+			<h1 class="section-name" id="{{ type }}">{{type}}</h1>
+			<div class="line"></div>
+
+			<div class="section">
+
+				<ul class="card">
+
+					{% for product in products %}
+					{% if type == product.type_id %}
+					<li>
+						<img src="{{ product.img.url }}" alt="{{ product.name }}">
+						<h2>{{ product.name }}</h2>
+						<p>
+							{{ product.description }}
+						</p>
+						<h3>{{ product.price }}</h3>
+						<button>В корзину</button>
+					</li>
+					{% endif %}
+					{% endfor %}
+				</ul>
+			</div>
+		{% endfor %}
+
+	</div>
+
+	<div id="footer" class="footer">
+
+		<div class="footer-container">
+
+			<img src="media/pizzaImages/logo.svg" alt="">
+
+			<p>
+				© RussianPizza 2023<br>Информация на сайте носит справочный характер. Внешний вид, цена и состав блюд могут отличаться от представленных на сайте.
+			</p>
+
+		</div>
+
+	</div>
+
+	</section>
+
+{% endblock %}
 
         <div class="product">
             <a href="{% url 'product_detail' product.id %}">{{ product.name }}</a>
@@ -14,5 +186,3 @@
             <p>Цена: {{ product.price }} руб.</p>
             <button>Купить</button>
         </div>
-    {% endfor %}
-{% endblock %}

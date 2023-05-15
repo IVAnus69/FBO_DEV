@@ -1,9 +1,9 @@
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render, redirect, get_object_or_404
-from django.http import HttpResponse, Http404
+from django.http import HttpResponse, Http404, HttpResponseRedirect
 from django.core.files.storage import FileSystemStorage
 from django.contrib import messages
-from .models import Pizza, Specifications, Profile
+from .models import Pizza, Specifications, Profile, PizzaType
 from .forms import UserForm, UserLoginForm
 
 
@@ -30,7 +30,7 @@ def registration(request):
 
             profileCheck = Profile.objects.get(user=user)
             login(request, user)
-            return HttpResponse("ГУДЕС")
+            return HttpResponseRedirect('/')
         else:
             return HttpResponse("не туда")
     else:
@@ -46,7 +46,7 @@ def auth(request):
             password = form.cleaned_data.get("password")
             user = authenticate(username=username, password=password)
             login(request, user)
-            return HttpResponse("Успешно вошел")
+            return HttpResponseRedirect('/')
     else:
         form = UserLoginForm()
         return render(request, 'auth.html', {'form': form})
@@ -65,13 +65,28 @@ def profile(request):
 
 def close_log(request):
     logout(request)
-    return HttpResponse("Вышел из аккаунта")
+    return HttpResponseRedirect('/')
 
 
 def product_view(request):
     products = Pizza.objects.all()
-    print(products)
-    return render(request, 'product.html', {'products': products})
+    types = PizzaType.objects.all()
+    if request.user.is_authenticated:
+        prof = Profile.objects.get(user=request.user)
+        if not prof.profilePic:
+            profPic = '/media/images/avatar.jpg'
+            bol = False
+        else:
+            profPic = prof.profilePic
+            bol = True
+    else:
+        profPic = '/media/images/avatar.jpg'
+        bol = False
+
+    return render(request, 'product.html', {'products': products,
+                                            'types': types,
+                                            'profPic' : profPic,
+                                            'bol': bol})
 
 
 def product_detail_view(request, pk):

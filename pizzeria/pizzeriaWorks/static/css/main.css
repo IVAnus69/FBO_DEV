@@ -1,0 +1,299 @@
+body {
+	padding: 0px;
+	margin: 0px;
+	font-family: 'Montserrat';
+	color: #fff;
+	font-size: 24px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	padding: 0px;
+	margin: 0px;
+	font-size: 24px;
+	font-weight: 700;
+}
+
+ul, li {
+	display: block;
+	padding: 0px;
+	margin: 0px;
+}
+
+.container {
+	width: 1170px;
+	margin: auto;
+}
+
+.box {
+	width: 100px;
+	height: 100px;
+}
+
+.header{
+	background: url('/media/pizzaImages/landing-background.jpg') no-repeat center top / cover;
+}
+
+header a {
+	color: white;
+}
+
+.nav {
+	display: flex;
+	align-items: center;
+}
+
+.nav ul {
+	display: flex;
+}
+
+.nav li a {
+	text-decoration: none;
+}
+
+.nav li {
+	margin-right: 30px;
+	display: flex;
+	align-items: center;
+}
+
+.name {
+	position: absolute;
+	text-align: center;
+	margin-left: 574px;
+	margin-top: 5px;
+}
+
+.logo {
+	padding-top: 10px;
+	margin-right: 360px;
+}
+
+.tel {
+	margin-left: 5px;
+}
+
+.basket {
+	font-weight: regular;
+	font-weight: 400;
+	margin-inline: 24px;
+}
+
+.slogan {
+	margin-top: 54px;
+	margin-bottom: 81px;
+}
+
+.slogan h1 {
+	font-size: 42px;
+	margin-bottom: 20px;
+	letter-spacing: 0.065em;
+}
+
+.slogan h2 {
+	font-weight: 300;
+	font-size: 26px;
+	margin-bottom: 30px;
+	letter-spacing: 0.015em;
+}
+
+.slogan button {
+	display: block;
+	width: 303px;
+	height: 71px;
+	background: linear-gradient(294.8deg, #810000 31.94%, #9A0000 71.67%);
+	box-shadow: 0px 8px 35px rgba(145, 1, 1, 0.29);
+	border: 0px;
+	border-radius: 5px;
+	font-family: 'Montserrat';
+	font-weight: 600;
+	font-size: 30px;
+	color: white;
+	letter-spacing: 0.05em;
+}
+
+.pros {
+	display: flex;
+	align-items: center;
+	margin-top: 16px;
+}
+
+.pros h1 {
+	font-weight: 500;
+	margin-left: 21px;
+	width: 350px;
+	text-align: center;
+}
+
+#icon-clock {
+	padding-bottom: 58px;
+}
+
+#background-half {
+	position: absolute;
+	width: 805px;
+	height: 900px;
+	background: #151515;
+	left: 0px;
+	top: 0px;
+}
+
+
+
+.menu{
+	background: linear-gradient(165.85deg, #3A3A3A 15.44%, #000000 91.68%);
+}
+
+.menu-nav {
+	background: white;
+	border-radius: 0px 0px 30px 30px;
+}
+
+.menu-nav-container {
+	width: 1170px;
+	margin: auto;
+	display: flex;
+	align-items: center;
+}
+
+.menu-name {
+	color: black;
+	text-align: center;
+    vertical-align: middle;
+	margin-left: -25px;
+	margin-bottom: 5px;
+	margin-right: 92px;
+}
+
+.menu-nav-container ul {
+	display: flex;
+	margin-right: 100px;
+}
+
+.menu-nav-container li a {
+	text-decoration: none;
+}
+
+.menu-nav-container li {
+	margin-right: 9px;
+	display: block;
+	align-items: center;
+}
+
+.dish-ref {
+	color: black;
+}
+
+.menu-basket {
+	color: black;
+	margin-left: 20px;
+	margin-right: 14px;
+	font-weight: 400;
+	font-size: 30px;
+}
+
+
+
+#sections {
+	text-align: center;
+}
+
+.section {
+	display: inline-block;
+}
+
+.section-name {
+	font-weight: 700;
+	font-size: 36px;
+	margin-top: 28px;
+}
+
+.line {
+	background: #D9D9D9;
+	width: 250px;
+	height: 3px;
+	margin-left: 455px;
+	margin-top: 9px;
+}
+
+.card{
+	text-align: center;
+    vertical-align: middle;
+    margin-left: 91px;
+    margin-bottom: 68px;
+}
+
+.card li {
+	margin-top: 48px;
+	display: inline-block;
+	margin-right: 91px;
+}
+
+.card li h2 {
+	margin-top: 20px;
+	font-weight: 600;
+	font-size: 36px;
+	text-align: center;
+	width: 246px;
+}
+
+.card li p {
+	margin-top: 8px;
+	font-weight: 300;
+	font-size: 16px;
+	width: 246px;
+	height: 100px;
+	text-align: left;
+}
+
+.card li h3 {
+	display: inline;
+	margin-top: 8px;
+	font-weight: 500;
+	font-size: 30px;
+}
+
+.card li button {
+	width: 156px;
+	height: 43px;
+	background: #696969;
+	border-radius: 10px;
+	border: 0px;
+	font-family: 'Montserrat';
+	font-weight: 500;
+	font-size: 24px;
+	text-align: center;
+	color: #FFFFFF;
+	margin-left: 24px;
+}
+
+.card img {
+	width: 258px;
+	height: 258px;
+}
+
+.footer {
+	background: #1B1B1B;
+	border-radius: 20px 20px 0px 0px;
+}
+
+.footer-container {
+	width: 1170px;
+	margin: auto;
+	display: flex;
+	align-items: center;
+}
+
+.footer-container img {
+	margin-right: -45px;
+	margin-left: 45px;
+}
+
+.footer-container p {
+	width: 944px;
+	font-weight: 300;
+	font-size: 16px;
+	line-height: 20px;
+	text-align: center;
+	margin-bottom: 25px;
+}
+

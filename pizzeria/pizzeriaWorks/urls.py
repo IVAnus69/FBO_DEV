@@ -4,12 +4,12 @@ from django.conf.urls.static import static
 from .import views
 
 urlpatterns = [
-    path('', views.index, name='home'),
+    # path('', views.index, name='home'),
     path('registration/', views.registration, name='registration'),
     path('authentication/', views.auth, name='auth'),
     path('profile/', views.profile, name='profile'),
     path('logout/', views.close_log, name='logout'),
-    path('products/', views.product_view, name='products'),
+    path('', views.product_view, name='products'),
     path('products/<int:pk>/', views.product_detail_view, name='product_detail'),
 ]
 
