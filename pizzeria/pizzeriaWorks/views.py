@@ -53,14 +53,25 @@ def auth(request):
 
 
 def profile(request):
-    prof = Profile.objects.get(user=request.user)
-    if not prof.profilePic:
-        profPic = '/media/images/avatar.jpg'
-        bol = False
+    if request.method == 'POST':
+        
     else:
-        profPic = prof.profilePic
-        bol = True
+        prof = Profile.objects.get(user=request.user)
+        if not prof.profilePic:
+            profPic = '/media/images/avatar.jpg'
+            bol = False
+        else:
+            profPic = prof.profilePic
+            bol = True
     return render(request, 'profile.html', {'profPic': profPic, 'bol': bol})
+
+
+def changeProfile(request):
+    prof = Profile.objects.get(user=request.user)
+    if request.method == 'POST':
+        return 0
+    else:
+        render(request, 'changeProfile.html')
 
 
 def close_log(request):
