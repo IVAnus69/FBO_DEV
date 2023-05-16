@@ -4,7 +4,7 @@ from django.http import HttpResponse, Http404, HttpResponseRedirect
 from django.core.files.storage import FileSystemStorage
 from django.contrib import messages
 from .models import Pizza, Specifications, Profile, PizzaType
-from .forms import UserForm, UserLoginForm
+from .forms import UserForm, UserLoginForm, ChangeUserProfile
 
 
 def index(request):
@@ -53,17 +53,34 @@ def auth(request):
 
 
 def profile(request):
-    if request.method == 'POST':
-        
+    if request.method == 'POST' and request.FILES:
+        form = ChangeUserProfile(request.POST)
+        if form.is_valid():
+            prof = Profile.objects.get(user=request.user)
+            file = request.FILES['profilePic']
+            prof.profilePic = file
+            prof.user.username = request.POST.get("username")
+            prof.user.email = request.POST.get("email")
+            prof.user.set_password(request.POST.get("password"))
+            prof.user.save()
+            prof.save()
+            login(request, prof.user)
+            return HttpResponse("ГУДООО")
+        return HttpResponseRedirect('/')
     else:
         prof = Profile.objects.get(user=request.user)
+        initial_dict = {
+            "username": prof.user.username,
+            "email": prof.user.email
+        }
+        form = ChangeUserProfile(initial=initial_dict)
         if not prof.profilePic:
             profPic = '/media/images/avatar.jpg'
             bol = False
         else:
             profPic = prof.profilePic
             bol = True
-    return render(request, 'profile.html', {'profPic': profPic, 'bol': bol})
+    return render(request, 'profile.html', {'profPic': profPic, 'bol': bol, 'form': form})
 
 
 def changeProfile(request):

@@ -11,5 +11,15 @@
 {% endif %}
 <a href="/logout/">Выйти</a>
 <a href="">Изменить изображение</a>
+<form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    {% for field in form %}
+        <p>
+        {{ field.label_tag }}<br>
+        {{ field }}
+        </p>
+    {% endfor %}
+    <button type="submit">Сохранить</button>
+</form>
 
 {% endblock content %}

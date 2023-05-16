@@ -14,3 +14,10 @@ class UserForm(UserCreationForm):
 class UserLoginForm(forms.Form):
     username = forms.CharField(label="Имя")
     password = forms.CharField(label="Пароль", widget=forms.PasswordInput())
+
+
+class ChangeUserProfile(forms.Form):
+    username = forms.CharField(label="Имя")
+    email = forms.EmailField(label="Почта")
+    profilePic = forms.ImageField(label='Изображение профиля', required=False)
+    password = forms.CharField(label="Новый пароль", widget=forms.PasswordInput())
