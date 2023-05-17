@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block title %} navbar {% endblock %}
+
+{% block header %}
+	<header id="header" class="header">
+		<div class="container">
+
+			<div class="nav">
+
+				<ul>
+					<li>
+						<a href="/">Меню</a>
+					</li>
+					<li>
+						<a href="#">О нас</a>
+					</li>
+					<li>
+						<a href="tel:+79504182020"><img href="tel:+79504182020" src='/media/pizzaImages/icon-phone.svg' alt=""></a>
+						<a href="tel:+79504182020" class="tel">8 (950) 418-20-20</a>
+					</li>
+				</ul>
+
+				<img src="/media/pizzaImages/logo.svg" alt="RussianPizza" class="logo">
+
+				<h1 class="name">Russian<br>Pizza</h1>
+
+
+
+
+				{% if user.is_authenticated %}
+				{% if bol is False %}
+				<a href="/profile/"><img src="{{profPic}}" width="60px" alt="RussianPizza" class="avatar"></a>
+				{% else %}
+				<a href="/profile/"><img src="{{ profPic.url }}" width="60px" alt="RussianPizza" class="avatar"></a>
+				{% endif %}
+				{% else %}
+				<a href="/registration/">Регистрация</a> |
+				<a href="/authentication/">Войти</a>
+				{% endif %}
+
+				<h1 class="basket">1280р</h1>
+
+				<a href="#"><img src="/media/pizzaImages/arrow-black.svg" alt=""></a>
+
+			</div>
+        </div>
+    </header>
+{% endblock header %}
+{% block content %} {% endblock content %}

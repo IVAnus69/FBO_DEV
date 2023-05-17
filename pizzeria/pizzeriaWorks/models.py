@@ -17,6 +17,7 @@ class Pizza(models.Model):
     img = models.ImageField('Изображение пиццы', upload_to='pizzaImages/')
     description = models.CharField('Описание', max_length=300)
     type_id = models.ForeignKey(PizzaType, on_delete=models.CASCADE)
+    isAlive = models.BooleanField(default=True)
 
     def __str__(self):
         return self.name

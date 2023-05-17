@@ -105,6 +105,25 @@ def close_log(request):
 def product_view(request):
     products = Pizza.objects.all()
     types = PizzaType.objects.all()
+    profPic, bol = get_profile_photo(request)
+    return render(request, 'product.html', {'products': products,
+                                            'types': types,
+                                            'profPic' : profPic,
+                                            'bol': bol})
+
+
+def product_detail_view(request, pk):
+    product = get_object_or_404(Pizza, pk=pk)
+    print(product.isAlive == True)
+    product_spec = Specifications.objects.all().filter(pizza_id=product.id)
+    profPic, bol = get_profile_photo(request)
+    return render(request, 'product_detail.html', {'product': product,
+                                                   'product_spec': product_spec,
+                                                   'profPic': profPic,
+                                                   'bol': bol})
+
+
+def get_profile_photo(request):
     if request.user.is_authenticated:
         prof = Profile.objects.get(user=request.user)
         if not prof.profilePic:
@@ -117,14 +136,11 @@ def product_view(request):
         profPic = '/media/images/avatar.jpg'
         bol = False
 
-    return render(request, 'product.html', {'products': products,
-                                            'types': types,
-                                            'profPic': profPic,
-                                            'bol': bol})
+    return profPic, bol
 
 
-def product_detail_view(request, pk):
+def product_delete(request, pk):
     product = get_object_or_404(Pizza, pk=pk)
-    product_spec = Specifications.objects.all().filter(pizza_id=product.id)
-    return render(request, 'product_detail.html', {'product': product,
-                                                   'product_spec': product_spec})
+    product.isAlive = False
+    product.save()
+    return HttpResponseRedirect('/')

@@ -11,7 +11,7 @@
 
 				<ul>
 					<li>
-						<a href="#">Меню</a>
+						<a href="/">Меню</a>
 					</li>
 					<li>
 						<a href="#">О нас</a>
@@ -33,11 +33,11 @@
 				{% if bol is False %}
 				<a href="/profile/"><img src="{{profPic}}" width="60px" alt="RussianPizza" class="avatar"></a>
 				{% else %}
-				<a href="/profile/"><img src="{{ profPic.url }}" alt="RussianPizza" class="avatar"></a>
+				<a href="/profile/"><img src="{{ profPic.url }}" width="60px" alt="RussianPizza" class="avatar"></a>
 				{% endif %}
 				{% else %}
 				<a href="/registration/">Регистрация</a> |
-				<a href="/authentication/">Войти</a></div>
+				<a href="/authentication/">Войти</a>
 				{% endif %}
 
 				<h1 class="basket">1280р</h1>
@@ -77,10 +77,9 @@
 					За 2 часа в любую точку Красноярска!
 				</h1>
 			</div>
-
 		</div>
 	</header>
-
+	<main>
 	<section id="menu" class="menu">
 
 		<div class="menu-nav">
@@ -143,16 +142,21 @@
 				<ul class="card">
 
 					{% for product in products %}
-					{% if type == product.type_id %}
+					{% if product.isAlive == True %}
+					{% if type == product.type_id%}
 					<li>
-						<img src="{{ product.img.url }}" alt="{{ product.name }}">
-						<h2>{{ product.name }}</h2>
+						<a href="{% url 'product_detail' product.id %}">
+							<img src="{{ product.img.url }}" alt="{{ product.name }}">
+						</a>
+
+						<h2><a href="{% url 'product_detail' product.id %}">{{ product.name }}</a></h2>
 						<p>
 							{{ product.description }}
 						</p>
 						<h3>{{ product.price }}</h3>
 						<button>В корзину</button>
 					</li>
+					{% endif %}
 					{% endif %}
 					{% endfor %}
 				</ul>
@@ -176,7 +180,7 @@
 	</div>
 
 	</section>
-
+</main>
 {% endblock %}
 
         <div class="product">

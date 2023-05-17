@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'navbar.html' %}
 
 {% block title %} {{ product.name }} {% endblock %}
 
@@ -6,12 +6,13 @@
     <h1>{{ product.name }}</h1>
 
     <div class="product">
-        <img src="{{ product.image.url }}" alt="{{ product.name }}">
+        <img src='{{ product.img.url }}' alt="{{ product.name }}">
         <p>{{ product.description }}</p>
         <p>Цена: {{ product.price }} руб.</p>
         {% for spec in product_spec %}
         <p>{{spec.title}} : {{spec.description}}</p>
         {% endfor %}
         <button>Купить</button>
+        <a href="/product/delete/{{product.id}}/"><button>Удалить</button></a>
     </div>
 {% endblock %}

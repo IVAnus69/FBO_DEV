@@ -19,6 +19,19 @@ ul, li {
 	margin: 0px;
 }
 
+.card a {
+	text-decoration: none;
+	color: #FFFFFF;
+}
+
+.card a:hover {
+	color: #E2E2E2;
+}
+
+.card a:active {
+	color: #0E0E0E;
+}
+
 .container {
 	width: 1170px;
 	margin: auto;
