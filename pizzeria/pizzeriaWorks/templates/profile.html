@@ -10,8 +10,7 @@
 <img src="{{ profPic.url }}" width="100px"><br>
 {% endif %}
 <a href="/logout/">Выйти</a>
-<a href="">Изменить изображение</a>
-<form method="POST" enctype="multipart/form-data">
+<form method="POST" enctype="multipart/form-data" name="first">
     {% csrf_token %}
     {% for field in form %}
         <p>
@@ -19,7 +18,10 @@
         {{ field }}
         </p>
     {% endfor %}
-    <button type="submit">Сохранить</button>
+    <button type="submit" name="saveButton">Сохранить</button>
 </form>
-
+<form method="POST" name="second">
+    {% csrf_token %}
+    <button type="submit" name="deleteButton">Удалить страницу</button>
+</form>
 {% endblock content %}

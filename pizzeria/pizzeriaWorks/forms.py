@@ -20,4 +20,4 @@ class ChangeUserProfile(forms.Form):
     username = forms.CharField(label="Имя")
     email = forms.EmailField(label="Почта")
     profilePic = forms.ImageField(label='Изображение профиля', required=False)
-    password = forms.CharField(label="Новый пароль", widget=forms.PasswordInput())
+    password = forms.CharField(label="Новый пароль", widget=forms.PasswordInput(), required=False)

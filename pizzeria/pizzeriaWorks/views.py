@@ -53,20 +53,26 @@ def auth(request):
 
 
 def profile(request):
-    if request.method == 'POST' and request.FILES:
-        form = ChangeUserProfile(request.POST)
-        if form.is_valid():
-            prof = Profile.objects.get(user=request.user)
-            file = request.FILES['profilePic']
-            prof.profilePic = file
-            prof.user.username = request.POST.get("username")
-            prof.user.email = request.POST.get("email")
-            prof.user.set_password(request.POST.get("password"))
-            prof.user.save()
-            prof.save()
-            login(request, prof.user)
-            return HttpResponse("ГУДООО")
-        return HttpResponseRedirect('/')
+    if request.method == 'POST':
+        if 'saveButton' in request.POST:# and request.FILES:
+            form = ChangeUserProfile(request.POST)
+            if form.is_valid():
+                prof = Profile.objects.get(user=request.user)
+                if request.POST.get("profilePic") != '':
+                    file = request.FILES['profilePic']
+                    prof.profilePic = file
+                prof.user.username = request.POST.get("username")
+                prof.user.email = request.POST.get("email")
+                if request.POST.get("password") != '':
+                    prof.user.set_password(request.POST.get("password"))
+                prof.user.save()
+                prof.save()
+                login(request, prof.user)
+                return HttpResponse("ГУДООО")
+            return HttpResponseRedirect('/')
+
+        elif 'deleteButton' in request.POST:
+            return HttpResponse("Удалил типа")
     else:
         prof = Profile.objects.get(user=request.user)
         initial_dict = {
@@ -80,7 +86,7 @@ def profile(request):
         else:
             profPic = prof.profilePic
             bol = True
-    return render(request, 'profile.html', {'profPic': profPic, 'bol': bol, 'form': form})
+        return render(request, 'profile.html', {'profPic': profPic, 'bol': bol, 'form': form})
 
 
 def changeProfile(request):
@@ -113,7 +119,7 @@ def product_view(request):
 
     return render(request, 'product.html', {'products': products,
                                             'types': types,
-                                            'profPic' : profPic,
+                                            'profPic': profPic,
                                             'bol': bol})
 
 
