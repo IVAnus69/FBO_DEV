@@ -3,6 +3,137 @@
 {% block title %} Товары {% endblock %}
 
 {% block content %}
+<!--	<div class="row p-1">-->
+<!--	 	<div class="col-md-6 p-3" style="background: #ffd3d5;">-->
+<!--	 		<input type="button" value="Получить сообщение от сервера" id="ajax-example-2" class="btn btn-danger">-->
+<!--	 	</div>-->
+<!--	 	<div class="col-md-6 p-3" style="background: #ffd3d5;">-->
+<!--	 		<span class="ajax-example-2-response-2" style="color: #ff1580;"></span>-->
+<!--	 	</div>-->
+<!--	</div>-->
+
+<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>-->
+<!--<thead>-->
+<!--      <tr>-->
+<!--        <td>1</td>-->
+<!--        <td>a</td>-->
+<!--        <td>as</td>-->
+<!--        <td>male</td>-->
+<!--        <td>email@asdasd.com</td>-->
+<!--        <td>asdasd</td>-->
+<!--        <td>A</td>-->
+<!--        <td><a href=# data-target="#my_modal" data-toggle="modal" class="identifyingClass" data-id="1">Open Modal</a> </td>-->
+<!--      </tr>-->
+<!--    </thead>-->
+
+<!--<div class="main-modal">-->
+<!--<h2>Modal</h2>-->
+<!--<div class="modal fade" id="my_modal" tabindex="-1" role="dialog" aria-labelledby="my_modalLabel">-->
+<!--<div class="modal-dialog" role="dialog">-->
+<!--    <div class="modal-content">-->
+<!--        <div class="modal-header">-->
+<!--            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>-->
+<!--            <h4 class="modal-title" id="myModalLabel">Modal Title</h4>-->
+<!--        </div>-->
+<!--        <div class="modal-body">-->
+
+<!--          <form method="post">-->
+<!--            {% csrf_token %}-->
+<!--              {{ form.as_p }}-->
+<!--              <input type="submit" value="Update">-->
+<!--          </form>-->
+
+<!--            <input type="hidden" name="hiddenValue" id="hiddenValue" value="{{ customer.id }} />-->
+<!--        </div>-->
+<!--        <div class="modal-footer">-->
+<!--            <button id="close-modal" type="button" class="btn btn-default" data-dismiss="modal">No</button>-->
+<!--            <button type="button" class="btn btn-primary">Yes</button>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+<!--</div>-->
+<!--</div>-->
+
+	<div class="popup" id="popUpReg">
+
+		<div class="header">
+
+			<h1 >Добро пожаловать!</h1>
+
+			<a class="cross"><img src="/media/pizzaImages/cross.svg" alt=""></a>
+
+		</div>
+    	<form method="POST" enctype="multipart/form-data">
+      	{% csrf_token %}
+      	{% for field in formReg %}
+        <h2>{{ field.label_tag }}</h2>
+		<div>{{ field }}</div>
+
+      {% endfor %}
+        <button type="submit" name="reg">Регистрация</button>
+    </form>
+		<h2>Введите ваш email для регистрации</h2>
+
+		<input type="text" name="">
+
+		<h2>Придумайте и дважды укажите ваш пароль</h2>
+
+		<input type="text" name="" placeholder="Не менее 8 символов">
+
+		<input type="text" name="" placeholder="Повторите пароль">
+
+		<h2>Последний шаг - укажите свои имя и фамилию!</h2>
+
+		<input type="text" name="" placeholder="Имя">
+
+		<input type="text" name="" placeholder="Фамилия">
+
+		<button>Зарегестрироваться</button>
+
+		<h3>Продолжая вы принимаете<br><a href="#">политику обработки персональных данных</a></h3>
+
+		<a href="log.html" class="to-log">Уже зарегестрированы?</a>
+
+	</div>
+
+
+
+
+
+	<div class="popup" id="popUpLog">
+
+		<div class="header">
+
+			<h1>Рады вас видеть!</h1>
+
+			<a class="cross"><img src="/media/pizzaImages/cross.svg" alt=""></a>
+
+		</div>
+
+		<form method="POST" enctype="multipart/form-data">
+      	{% csrf_token %}
+      	{% for field in formLog %}
+			<h2>{{ field.label_tag }}</h2>
+			<div>{{ field }}</div>
+
+      	{% endfor %}
+        <button type="submit" name="log">Войти</button>
+    	</form>
+
+		<h2>Введите ваш email</h2>
+
+		<input type="text" name="">
+
+		<h2>Введите ваш пароль</h2>
+
+		<input type="text" name="">
+
+		<button type="submit">Войти</button>
+
+		<a href="reg.html" class="to-log">Нет аккаунта?</a>
+
+	</div>
+<div class="overlay" id="overlay-modal"></div>
 
 	<header id="header" class="header">
 		<div class="container">
@@ -17,7 +148,7 @@
 						<a href="#">О нас</a>
 					</li>
 					<li>
-						<a href="tel:+79504182020"><img href="tel:+79504182020" src='media/pizzaImages/icon-phone.svg' alt=""></a>
+						<a href="tel:+79504182020"><img href="tel:+79504182020" src='/media/pizzaImages/icon-phone.svg' alt=""></a>
 						<a href="tel:+79504182020" class="tel">8 (950) 418-20-20</a>
 					</li>
 				</ul>
@@ -36,8 +167,8 @@
 				<a href="/profile/"><img src="{{ profPic.url }}" width="60px" alt="RussianPizza" class="avatar"></a>
 				{% endif %}
 				{% else %}
-				<a href="/registration/">Регистрация</a> |
-				<a href="/authentication/">Войти</a>
+				<a class="popUpBtn" id="reg" href="">Регистрация</a> |
+				<a class="popUpBtn" id="log" href="" >Войти</a>
 				{% endif %}
 
 				<h1 class="basket">1280р</h1>

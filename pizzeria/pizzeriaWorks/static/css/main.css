@@ -310,3 +310,7 @@ header a {
 	margin-bottom: 25px;
 }
 
+
+.main-modal{
+  display:none;
+}

@@ -7,11 +7,13 @@
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <link rel="stylesheet" href="{% static 'css/main.css' %}">
-    <link rel="stylesheet" href="{% static 'css/reg-log' %}">
+    <link rel="stylesheet" href="{% static 'css/reg-log.css' %}">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500&display=swap" rel="stylesheet">
+    {% csrf_token %}
+    <script type="text/javascript" src="{% static 'js/script.js' %}"></script>
     <title>{% block title %}Title{% endblock title %}</title>
 </head>
 <body>

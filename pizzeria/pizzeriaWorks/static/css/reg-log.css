@@ -1,19 +1,11 @@
-body {
-	padding: 0px;
-	margin: 0px;
-	font-family: 'Montserrat';
-	color: #fff;
-	font-size: 24px;
-}
-
-h1 {
+.popup h1 {
 	padding: 0px;
 	margin: auto;
 	font-size: 28px;
 	font-weight: 700;
 }
 
-h2 {
+.popup h2 {
 	padding: 0px;
 	margin: 0px;
 	font-weight: 500;
@@ -23,7 +15,7 @@ h2 {
 	margin-top: 13px;
 }
 
-h3 {
+.popup h3 {
 	font-weight: 400;
 	font-size: 16px;
 	text-align: center;
@@ -31,18 +23,18 @@ h3 {
 	margin-top: 15px;
 }
 
-h3 a {
+.popup h3 a {
 	color: #FFFFFF;
 }
 
-a {
+.popup a {
 	font-weight: 400;
 	font-size: 16px;
 	text-decoration-line: underline;
 	color: #696969;
 }
 
-input {
+.popup input {
 	display: flex;
 	width: 373px;
 	height: 40px;
@@ -56,13 +48,13 @@ input {
 	color: #696969;
 }
 
-ul, li {
+.popup ul, li {
 	display: block;
 	padding: 0px;
 	margin: 0px;
 }
 
-button {
+.popup button {
 	width: 288px;
 	height: 40px;
 	background: #3A3A3A;
@@ -78,20 +70,24 @@ button {
 
 
 
-body {
+.popup body {
 	background: url('../img/background.jpg') no-repeat center top / cover;
 }
 
-.card {
-	margin: auto;
-	margin-top: 5%;
-	margin-bottom: 5%;
+.popup {
+
+   	visibility: hidden;
+	margin: 5% auto;
 	width: 450px;
 	background: linear-gradient(162.89deg, #242424 17.41%, #111111 92.16%);
 	border-radius: 20px;
+   	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	z-index: 30; /* Должен быть выше чем у подложки*/
 }
-
-.header {
+.popup .header {
 	display: flex;
 	align-items: center;
 	width: 450px;
@@ -101,13 +97,28 @@ body {
 	margin-bottom: 27px;
 }
 
-.cross {
+.popup .cross {
 	margin-right: 38px;
 	margin-left: -40px;
 }
 
-.to-log {
+.popup .to-log {
 	display: flex;
 	margin-bottom: 18px;
 	margin-left: auto;
+}
+
+.overlay {
+
+   /* Скрываем подложку  */
+   visibility: hidden;
+
+   position: fixed;
+   top: 0;
+   left: 0;
+   width: 100%;
+   height: 100%;
+   background-color: rgba(0, 0, 0, .5);
+   z-index: 20;
+   transition: .3s all;
 }
