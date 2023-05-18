@@ -6,6 +6,7 @@ from django.core.files.storage import FileSystemStorage
 from django.contrib import messages
 from .models import Pizza, Specifications, Profile, PizzaType
 from .forms import UserForm, UserLoginForm, ChangeUserProfile
+from django.contrib.auth.models import User
 
 
 class Ajax2View(View):
@@ -56,7 +57,6 @@ def registration(request):
         return render(request, 'registr.html', {'form': form})
 
 
-
 def auth(request):
     if request.method == "POST":
         form = UserLoginForm(request.POST)
@@ -81,7 +81,10 @@ def profile(request):
                     file = request.FILES['profilePic']
                     prof.profilePic = file
                 prof.user.username = request.POST.get("username")
-                prof.user.email = request.POST.get("email")
+
+                if User.objects.filter(email=request.POST.get("email")).count() == 0:
+                    prof.user.email = request.POST.get("email")
+
                 if request.POST.get("password") != '':
                     prof.user.set_password(request.POST.get("password"))
                 prof.user.save()
@@ -108,12 +111,6 @@ def profile(request):
         return render(request, 'profile.html', {'profPic': profPic, 'bol': bol, 'form': form})
 
 
-def changeProfile(request):
-    prof = Profile.objects.get(user=request.user)
-    if request.method == 'POST':
-        return 0
-    else:
-        render(request, 'changeProfile.html')
 
 
 def close_log(request):
