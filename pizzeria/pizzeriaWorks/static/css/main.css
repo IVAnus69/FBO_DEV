@@ -1,3 +1,7 @@
+html {
+	scroll-behavior: smooth;
+}
+
 body {
 	padding: 0px;
 	margin: 0px;
@@ -313,4 +317,26 @@ header a {
 
 .main-modal{
   display:none;
+}
+
+.upward {
+	position: fixed;
+	bottom: -100px;
+	right: 70px;
+	z-index: 9999;
+	opacity: 30%;
+	transition: 0.7s;
+}
+
+.upward:hover{
+	opacity: 100%;
+	cursor: pointer;
+}
+
+.active {
+	bottom: 70px;;
+}
+
+.avatar {
+	border-radius: 30px;
 }
