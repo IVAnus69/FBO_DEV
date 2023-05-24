@@ -29,10 +29,10 @@
 
 
 				{% if user.is_authenticated %}
-				{% if bol is False %}
-				<a href="/profile/"><img src="{{profPic}}" width="60px" alt="RussianPizza" class="avatar"></a>
-				{% else %}
+				{% if bol %}
 				<a href="/profile/"><img src="{{ profPic.url }}" width="60px" alt="RussianPizza" class="avatar"></a>
+				{% else %}
+				<a href="/profile/"><img src="{{ profPic }}" width="60px" alt="RussianPizza" class="avatar"></a>
 				{% endif %}
 				{% else %}
 				<a class="regPopUp" href="/registration/">Регистрация</a> |

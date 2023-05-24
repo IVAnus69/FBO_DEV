@@ -14,6 +14,7 @@ urlpatterns = [
     path('products/<int:pk>/', views.product_detail_view, name='product_detail'),
     path('product/delete/<int:pk>/', views.product_delete, name='product_delete'),
     path('ajax/example2/', Ajax2View.as_view(), name='ajax_example2'),
+    path('setCookies', views.setCookies)
 ]
 
 if settings.DEBUG:

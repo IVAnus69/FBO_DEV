@@ -30,11 +30,19 @@ def index(request):
     return render(request, 'index.html')
 
 
+def setCookies(response, request, user):
+    profileCheck = Profile.objects.get(user=user)
+    response.set_cookie("username", profileCheck.user.username)
+    profilePic = get_profile_photo(request)
+    response.set_cookie("profilePic", profilePic)
+    return response
+
+
 def update_user_data(user):
     Profile.objects.update_or_create(user=user)#, profilePic=user.profilePic)
 
 
-def registration(request):
+def registration(request):#died
     if request.method == "POST":# and request.FILES:
         form = UserForm(request.POST)
         if form.is_valid():
@@ -49,15 +57,17 @@ def registration(request):
 
             profileCheck = Profile.objects.get(user=user)
             login(request, user)
-            return HttpResponseRedirect('/')
+            response = HttpResponseRedirect("/")
+            response.set_cookie("username", request.user.username)
+            return response
         else:
             return HttpResponse("не туда")
     else:
         form = UserForm()
-        return render(request, 'registr.html', {'form': form})
+        return render(request, 'registr.html', {'form': form})#
 
 
-def auth(request):
+def auth(request):#died
     if request.method == "POST":
         form = UserLoginForm(request.POST)
         if form.is_valid():
@@ -65,7 +75,9 @@ def auth(request):
             password = form.cleaned_data.get("password")
             user = authenticate(username=username, password=password)
             login(request, user)
-            return HttpResponseRedirect('/')
+            response = render(request, 'index.html')
+            response.set_cookie("username", request.user.username)
+            return response
     else:
         form = UserLoginForm()
         return render(request, 'auth.html', {'form': form})
@@ -90,9 +102,10 @@ def profile(request):
                 prof.user.save()
                 prof.save()
                 login(request, prof.user)
-                return HttpResponse("ГУДООО")
+                response = HttpResponse("ГУДООО")
+                response = setCookies(response, request, prof.user)
+                return response
             return HttpResponseRedirect('/')
-
         elif 'deleteButton' in request.POST:
             return HttpResponse("Удалил типа")
     else:
@@ -108,19 +121,27 @@ def profile(request):
         else:
             profPic = prof.profilePic
             bol = True
-        return render(request, 'profile.html', {'profPic': profPic, 'bol': bol, 'form': form})
-
-
+        username = request.COOKIES["username"]
+        #print(profPic)
+        return render(request, 'profile.html', {'profPic': profPic,
+                                                'username': username,
+                                                'bol': bol,
+                                                'form': form})
 
 
 def close_log(request):
     logout(request)
-    return HttpResponseRedirect('/')
+    if request.COOKIES.get("username") and request.COOKIES.get("profilePic"):
+        response = HttpResponseRedirect('/')
+        response.delete_cookie("username")
+        response.delete_cookie("profilePic")
+        return response
+    #return HttpResponseRedirect('/')
 
 
 def product_view(request):
     if request.method == "POST":
-        if "reg" in request.POST:
+        if "reg" in request.POST:#регистрация
             formReg = UserForm(request.POST)
             if formReg.is_valid():
                 #file = request.FILES['profilePic']
@@ -132,29 +153,37 @@ def product_view(request):
 
                 update_user_data(user)
 
-                profileCheck = Profile.objects.get(user=user)
                 login(request, user)
-                return HttpResponseRedirect('/')
+                response = HttpResponseRedirect('/')
+                response = setCookies(response, request, user)
+                return response
             else:
                 return HttpResponse("не туда")
-        elif "log" in request.POST:
+        elif "log" in request.POST:#авторизация
             formLog = UserLoginForm(request.POST)
             if formLog.is_valid():
                 username = formLog.cleaned_data.get("username")
                 password = formLog.cleaned_data.get("password")
                 user = authenticate(username=username, password=password)
                 login(request, user)
-                return HttpResponseRedirect('/')
+                response = HttpResponseRedirect('/')
+                response = setCookies(response, request, user)
+                return response
     else:
-        formReg = UserForm();
-        formLog = UserLoginForm();
+        formReg = UserForm()
+        formLog = UserLoginForm()
 
     products = Pizza.objects.all()
     types = PizzaType.objects.all()
     profPic, bol = get_profile_photo(request)
+    # try:
+    #     profPic = request.COOKIES["profilePic"]
+    #     print(profPic)
+    # except:
+    #     profPic = None
     return render(request, 'product.html', {'products': products,
                                             'types': types,
-                                            'profPic' : profPic,
+                                            'profPic': profPic,
                                             'bol': bol,
                                             'formReg': formReg,
                                             'formLog': formLog})
@@ -175,15 +204,14 @@ def get_profile_photo(request):
     if request.user.is_authenticated:
         prof = Profile.objects.get(user=request.user)
         if not prof.profilePic:
-            profPic = '/media/images/avatar.jpg'
+            profPic = 'media/images/avatar.jpg'
             bol = False
         else:
             profPic = prof.profilePic
             bol = True
     else:
-        profPic = '/media/images/avatar.jpg'
+        profPic = 'media/images/avatar.jpg'
         bol = False
-
     return profPic, bol
 
 
