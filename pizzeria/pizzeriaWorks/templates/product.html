@@ -3,56 +3,82 @@
 {% block title %} Товары {% endblock %}
 
 {% block content %}
-<!--	<div class="row p-1">-->
-<!--	 	<div class="col-md-6 p-3" style="background: #ffd3d5;">-->
-<!--	 		<input type="button" value="Получить сообщение от сервера" id="ajax-example-2" class="btn btn-danger">-->
-<!--	 	</div>-->
-<!--	 	<div class="col-md-6 p-3" style="background: #ffd3d5;">-->
-<!--	 		<span class="ajax-example-2-response-2" style="color: #ff1580;"></span>-->
-<!--	 	</div>-->
-<!--	</div>-->
+<div class="basket">
+		<div class="basket_body">
+			<div class="basket_content">
+				<div class="basket_head">
+					<h1>Корзина</h1>
 
-<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>-->
-<!--<thead>-->
-<!--      <tr>-->
-<!--        <td>1</td>-->
-<!--        <td>a</td>-->
-<!--        <td>as</td>-->
-<!--        <td>male</td>-->
-<!--        <td>email@asdasd.com</td>-->
-<!--        <td>asdasd</td>-->
-<!--        <td>A</td>-->
-<!--        <td><a href=# data-target="#my_modal" data-toggle="modal" class="identifyingClass" data-id="1">Open Modal</a> </td>-->
-<!--      </tr>-->
-<!--    </thead>-->
+					<a href="" class="cross"><img src="/media/pizzaImages/cross.svg" alt=""></a>
+				</div>
+				{% for product in cart %}
+				<div class="pizza">
+					<img src="{{ product.pizza_id.img.url }}" alt="">
+					<div class="pizza_info">
 
-<!--<div class="main-modal">-->
-<!--<h2>Modal</h2>-->
-<!--<div class="modal fade" id="my_modal" tabindex="-1" role="dialog" aria-labelledby="my_modalLabel">-->
-<!--<div class="modal-dialog" role="dialog">-->
-<!--    <div class="modal-content">-->
-<!--        <div class="modal-header">-->
-<!--            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>-->
-<!--            <h4 class="modal-title" id="myModalLabel">Modal Title</h4>-->
-<!--        </div>-->
-<!--        <div class="modal-body">-->
+						<h2>{{product.pizza_id.name}}</h2>
+						<h3>{{product.pizza_id.price}}</h3>
 
-<!--          <form method="post">-->
-<!--            {% csrf_token %}-->
-<!--              {{ form.as_p }}-->
-<!--              <input type="submit" value="Update">-->
-<!--          </form>-->
+						<div class="manipulator">
+							<a href="{% url 'basket_remove' product.pizza_id.id %}" class="minus">-</a>
+							<input type="text" value="{{product.count}}">
+							<a href="{% url 'basket_add' product.pizza_id.id %}" class="plus">+</a>
+						</div>
 
-<!--            <input type="hidden" name="hiddenValue" id="hiddenValue" value="{{ customer.id }} />-->
-<!--        </div>-->
-<!--        <div class="modal-footer">-->
-<!--            <button id="close-modal" type="button" class="btn btn-default" data-dismiss="modal">No</button>-->
-<!--            <button type="button" class="btn btn-primary">Yes</button>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--</div>-->
-<!--</div>-->
-<!--</div>-->
+					</div>
+				</div>
+
+				<div class="underline"></div>
+				{% endfor%}
+
+				<div class="cost">
+					<h4>К оплате</h4>
+					<h5>{{ total_sum }}</h5>
+				</div>
+				<a href="user/make-order" class="order">Заказать</a>
+
+			</div>
+		</div>
+	</div>
+
+	<div class="good" id="productModal">
+		<div class="good_body">
+			<div class="good_content">
+				<div class="good_characteristics">
+
+					<h2>Характеристики:</h2>
+					<div class=""></div>
+					<p>Оч вкусная брат</p>
+
+					<ul>
+						<li>
+							Цена: 640р.
+						</li>
+						<li>
+							Размер: 30см.
+						</li>
+						<li>
+							Начинка: Водка, рассол, твоя мама.
+						</li>
+						<li>
+							Тесто: тонкое
+						</li>
+					</ul>
+
+				</div>
+
+				<div class="good_main">
+
+					<h1>Русская</h1>
+					<img src="img/pizza-russian.svg" alt="">
+					<button>Добавить</button>
+
+				</div>
+
+				<a href="" class="good_cross"><img src="img/cross.svg" alt=""></a>
+			</div>
+		</div>
+	</div>
 
 <div class="popup" id="popUpReg">
 
@@ -130,7 +156,7 @@
 					</li>
 				</ul>
 
-				<img src="media/pizzaImages/logo.svg" alt="RussianPizza" class="logo">
+				<img src="/media/pizzaImages/logo.svg" alt="RussianPizza" class="logo">
 
 				<h1 class="name">Russian<br>Pizza</h1>
 
@@ -140,18 +166,15 @@
 				{% if user.is_authenticated %}
 				{% if bol is False %}
 				<a href="/profile/"><img src="{{profPic}}" width="60px" alt="RussianPizza" class="avatar"></a>
+				<a href="/logout/"><img src="/media/pizzaImages/icon-door.svg" alt=""></a>
 				{% else %}
 				<a href="/profile/"><img src="{{ profPic.url }}" width="60px" alt="RussianPizza" class="avatar"></a>
+				<a href="/logout/"><img src="/media/pizzaImages/icon-door.svg" alt=""></a>
 				{% endif %}
 				{% else %}
 				<a class="popUpBtn" id="reg" href="">Регистрация</a> |
 				<a class="popUpBtn" id="log" href="" >Войти</a>
 				{% endif %}
-
-				<h1 class="basket">1280р</h1>
-
-				<a href="#"><img src="media/pizzaImages/arrow-black.svg" alt=""></a>
-
 			</div>
 
 			<div class="slogan">
@@ -230,12 +253,21 @@
 							<a href="#Напитки" class="dish-ref">Напитки</a>
 						</li>
 					</ul>
+					{% if user.is_authenticated %}
+					{% if bol is False %}
+					<a href="/profile/"><img src="{{profPic}}" width="60px" alt="RussianPizza" class="avatar"></a>
+					<h1 class="menu-basket">{{ total_sum }}</h1>
+					<a href="" class="popUpBtn" id="cart1"><img src="media/pizzaImages/icon-cart.svg" alt=""></a>
+					{% else %}
+					<a href="/profile/"><img src="{{ profPic.url }}" width="60px" alt="RussianPizza" class="avatar"></a>
+					<h1 class="menu-basket">{{ total_sum }}</h1>
+					<a href="" class="popUpBtn" id="cart2"><img src="media/pizzaImages/icon-cart.svg" alt=""></a>
+					{% endif %}
+					{% else %}
+					{% endif %}
 
-					<a href="#"><img src="media/pizzaImages/avatar.svg" alt="RussianPizza" class="menu-avatar"></a>
 
-					<h1 class="menu-basket">1280р</h1>
 
-					<a href="#"><img src="media/pizzaImages/arrow-white.svg" alt=""></a>
 
 				</div>
 
@@ -258,11 +290,16 @@
 						</a>
 
 						<h2><a href="{% url 'product_detail' product.id %}">{{ product.name }}</a></h2>
-						<p>
+						<p class="desc">
 							{{ product.description }}
 						</p>
-						<h3>{{ product.price }}</h3>
-						<button>В корзину</button>
+						<div class="price">
+							<h3>{{ product.price }} ₽</h3>
+							<div class="product_change">
+								<a href="{% url 'basket_remove' product.id%}" class="btn-">-</a>
+								<div class="quantity"></div>
+								<a href="{% url 'basket_add' product.id%}" class="btn+">+</a>
+						</div>
 					</li>
 					{% endif %}
 					{% endif %}

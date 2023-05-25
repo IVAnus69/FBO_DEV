@@ -19,8 +19,7 @@ class Pizza(models.Model):
     type_id = models.ForeignKey(PizzaType, on_delete=models.CASCADE)
     isAlive = models.BooleanField(default=True)
 
-    def __str__(self):
-        return self.name
+
 
 
 class Profile(models.Model):
@@ -36,6 +35,9 @@ class Basket(models.Model):
     pizza_id = models.ForeignKey(Pizza, on_delete=models.CASCADE)
     count = models.IntegerField('Количество')
 
+    def sum(self):
+        return self.pizza_id.price * self.count
+
 
 class PizzaRating(models.Model):
     user_id = models.ForeignKey(Profile, on_delete=models.CASCADE)
@@ -50,3 +52,14 @@ class Specifications(models.Model):
 
     def __str__(self):
         return self.pizza_id.name + ": " + self.description
+
+
+class Order(models.Model):
+    id = models.AutoField('ID', primary_key=True)
+    user_id = models.ForeignKey(Profile, on_delete=models.CASCADE)
+
+class Order_Item(models.Model):
+    pizza_id = models.ForeignKey(Pizza, on_delete=models.CASCADE)
+    order_id = models.ForeignKey(Order, on_delete=models.CASCADE)
+    count = models.IntegerField('Количество')
+

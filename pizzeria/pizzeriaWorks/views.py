@@ -4,7 +4,7 @@ from django.http import HttpResponse, Http404, HttpResponseRedirect, JsonRespons
 from django.views import View
 from django.core.files.storage import FileSystemStorage
 from django.contrib import messages
-from .models import Pizza, Specifications, Profile, PizzaType
+from .models import Pizza, Specifications, Profile, PizzaType, Basket, Order, Order_Item
 from .forms import UserForm, UserLoginForm, ChangeUserProfile
 from django.contrib.auth.models import User
 
@@ -152,12 +152,16 @@ def product_view(request):
     products = Pizza.objects.all()
     types = PizzaType.objects.all()
     profPic, bol = get_profile_photo(request)
+    cart = Basket.objects.all().filter(user_id=request.user.id)
+
     return render(request, 'product.html', {'products': products,
                                             'types': types,
                                             'profPic' : profPic,
                                             'bol': bol,
                                             'formReg': formReg,
-                                            'formLog': formLog})
+                                            'formLog': formLog,
+                                            'cart': cart,
+                                            'total_sum': sum(basket.sum() for basket in cart)})
 
 
 def product_detail_view(request, pk):
@@ -192,3 +196,54 @@ def product_delete(request, pk):
     product.isAlive = False
     product.save()
     return HttpResponseRedirect('/')
+
+def basket_add(request, product_id):
+    product = Pizza.objects.get(id=product_id)
+    prof = Profile.objects.get(user=request.user)
+    baskets = Basket.objects.filter(user_id=prof, pizza_id=product)
+    if not baskets.exists():
+        Basket.objects.create(user_id=prof, pizza_id=product, count=1)
+    else:
+        basket = baskets.first()
+        basket.count += 1
+        basket.save()
+
+    return HttpResponseRedirect(request.META['HTTP_REFERER'])
+
+def basket_remove(request, product_id):
+    product = Pizza.objects.get(id=product_id)
+    prof = Profile.objects.get(user=request.user)
+    baskets = Basket.objects.filter(user_id=prof, pizza_id=product)
+    print(baskets.first().count)
+    if baskets.first().count != 1:
+        basket = baskets.first()
+        basket.count -= 1
+        basket.save()
+        print(321)
+    else:
+        print(123)
+        baskets.delete()
+
+    return HttpResponseRedirect(request.META['HTTP_REFERER'])
+
+def modalproduct(request, product_id):
+    modal_product = get_object_or_404(Pizza, id=product_id)
+    print(modal_product)
+    print(12312)
+    return render(request, 'modal-product.html', {'modal_product': modal_product})
+
+def make_order(request):
+    print(1231)
+    prof = Profile.objects.get(user=request.user)
+    basket = Basket.objects.filter(user_id=prof)
+    order = Order.objects.create(user_id=prof)
+    for b in  basket:
+        print(b.count)
+        print(b.pizza_id)
+        if b.count != 0:
+            order_item = Order_Item.objects.create(pizza_id=b.pizza_id, order_id=order, count=b.count)
+            order_item.save()
+
+    order.save()
+    basket.delete()
+    return HttpResponseRedirect(request.META['HTTP_REFERER'])

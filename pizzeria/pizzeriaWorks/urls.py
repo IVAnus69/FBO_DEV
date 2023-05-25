@@ -14,6 +14,10 @@ urlpatterns = [
     path('products/<int:pk>/', views.product_detail_view, name='product_detail'),
     path('product/delete/<int:pk>/', views.product_delete, name='product_delete'),
     path('ajax/example2/', Ajax2View.as_view(), name='ajax_example2'),
+    path('baskets/add/<int:product_id>',views.basket_add, name='basket_add'),
+    path('baskets/remove/<int:product_id>', views.basket_remove, name='basket_remove'),
+    path('modal-product/<int:product_id>/', views.modalproduct, name='modal-product'),
+    path('user/make-order', views.make_order, name='make-order'),
 ]
 
 if settings.DEBUG:

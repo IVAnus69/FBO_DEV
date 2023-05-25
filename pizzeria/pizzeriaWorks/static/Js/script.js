@@ -27,12 +27,18 @@ document.addEventListener('DOMContentLoaded', function() {
             let butAttr = this.getAttribute('id');
             if (butAttr === 'log') {
                 let modal = document.querySelector('#popUpLog');
-                modal.style.visibility = 'visible';
-                overlay.style.visibility = 'visible';
-            } else {
+                modal.style.display = 'block';
+                overlay.style.display = 'block';
+            } else if (butAttr === 'reg') {
                 let modal = document.querySelector('#popUpReg');
-                modal.style.visibility = 'visible';
-                overlay.style.visibility = 'visible';
+                modal.style.display = 'block';
+                overlay.style.display = 'block';
+            } else if (butAttr === 'cart1') {
+                let modal = document.querySelector('.basket');
+                modal.style.display = 'block';
+            } else if (butAttr === 'cart2') {
+                let modal = document.querySelector('.basket');
+                modal.style.display = 'block';
             }
       });
     });
@@ -41,15 +47,29 @@ document.addEventListener('DOMContentLoaded', function() {
         item.addEventListener('click', function(e) {
 
             e.preventDefault()
-            overlay.style.visibility = 'hidden';
+            overlay.style.display = 'none';
             document.querySelectorAll('.popup').forEach(function (item) {
-                item.style.visibility = 'hidden';
-
+                item.style.display = 'none';
             })
-
+            document.querySelectorAll('.basket').forEach(function (item) {
+                item.style.display = 'none';
+            })
         })
     });
 }); // end ready
+
+$('#productModal').on('show.bs.modal', function (event) {
+    alert('123')
+    let button = $(event.relatedTarget);
+    let url = button.data('url');
+    let container = $(this).find('.good_body');
+    container.html('');
+    $.ajax({
+        url: url,
+    }).done(function (data){
+        container.html(data);
+    })
+})
 
 
     // const exampleEl2 = document.querySelector('#ajax-example-2');

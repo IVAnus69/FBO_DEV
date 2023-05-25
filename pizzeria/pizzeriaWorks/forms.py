@@ -2,6 +2,7 @@ from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 
+PRODUCT_QUANTITY_CHOICES = [(i, str(i)) for i in range(1, 21)]
 
 class UserForm(UserCreationForm):
     #profilePic = forms.ImageField(label='Изображение профиля', required=False)

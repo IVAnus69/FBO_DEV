@@ -31,18 +31,15 @@
 				{% if user.is_authenticated %}
 				{% if bol is False %}
 				<a href="/profile/"><img src="{{profPic}}" width="60px" alt="RussianPizza" class="avatar"></a>
+				<a href="/logout/"><img src="/media/pizzaImages/icon-door.svg" alt=""></a>
 				{% else %}
 				<a href="/profile/"><img src="{{ profPic.url }}" width="60px" alt="RussianPizza" class="avatar"></a>
+				<a href="/logout/"><img src="/media/pizzaImages/icon-door.svg" alt=""></a>
 				{% endif %}
 				{% else %}
-				<a class="regPopUp" href="/registration/">Регистрация</a> |
-				<a class="authPopUP" href="/authentication/">Войти</a>
+				<a class="popUpBtn" id="reg" href="">Регистрация</a> |
+				<a class="popUpBtn" id="log" href="" >Войти</a>
 				{% endif %}
-
-				<h1 class="basket">1280р</h1>
-
-				<a href="#"><img src="/media/pizzaImages/arrow-black.svg" alt=""></a>
-
 			</div>
         </div>
     </header>

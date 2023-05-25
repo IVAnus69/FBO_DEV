@@ -76,7 +76,7 @@
 
 .popup {
 
-   	visibility: hidden;
+   	display: none;
 	margin: 5% auto;
 	width: 450px;
 	background: linear-gradient(162.89deg, #242424 17.41%, #111111 92.16%);
@@ -111,7 +111,7 @@
 .overlay {
 
    /* Скрываем подложку  */
-   visibility: hidden;
+   display: none;
 
    position: fixed;
    top: 0;
