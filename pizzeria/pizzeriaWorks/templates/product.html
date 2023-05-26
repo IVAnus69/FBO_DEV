@@ -3,6 +3,11 @@
 {% block title %} Товары {% endblock %}
 
 {% block content %}
+		{% if request.user.is_authenticated %}
+		{% if not bol %}
+		<h1 class="attention">Установите аватарку!!!</h1>
+		{% endif %}
+		{% endif %}
 <div class="basket">
 		<div class="basket_body">
 			<div class="basket_content">

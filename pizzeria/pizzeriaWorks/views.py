@@ -33,6 +33,12 @@ def index(request):
 def update_user_data(user):
     Profile.objects.update_or_create(user=user)#, profilePic=user.profilePic)
 
+def setCookies(response, request, user):
+    profileCheck = Profile.objects.get(user=user)
+    response.set_cookie("username", profileCheck.user.username)
+    profilePic = get_profile_photo(request)
+    response.set_cookie("profilePic", profilePic)
+    return response
 
 def registration(request):
     if request.method == "POST":# and request.FILES:
@@ -49,7 +55,9 @@ def registration(request):
 
             profileCheck = Profile.objects.get(user=user)
             login(request, user)
-            return HttpResponseRedirect('/')
+            response = HttpResponseRedirect("/")
+            response.set_cookie("username", request.user.username)
+            return response
         else:
             return HttpResponse("не туда")
     else:
@@ -90,7 +98,9 @@ def profile(request):
                 prof.user.save()
                 prof.save()
                 login(request, prof.user)
-                return HttpResponse("ГУДООО")
+                response = HttpResponse("ГУДООО")
+                response = setCookies(response, request, prof.user)
+                return response
             return HttpResponseRedirect('/')
 
         elif 'deleteButton' in request.POST:
@@ -108,14 +118,23 @@ def profile(request):
         else:
             profPic = prof.profilePic
             bol = True
-        return render(request, 'profile.html', {'profPic': profPic, 'bol': bol, 'form': form})
+        username = request.COOKIES["username"]
+        # print(profPic)
+        return render(request, 'profile.html', {'profPic': profPic,
+                                                'username': username,
+                                                'bol': bol,
+                                                'form': form})
 
 
 
 
 def close_log(request):
     logout(request)
-    return HttpResponseRedirect('/')
+    if request.COOKIES.get("username") and request.COOKIES.get("profilePic"):
+        response = HttpResponseRedirect('/')
+        response.delete_cookie("username")
+        response.delete_cookie("profilePic")
+        return response
 
 
 def product_view(request):
@@ -134,7 +153,9 @@ def product_view(request):
 
                 profileCheck = Profile.objects.get(user=user)
                 login(request, user)
-                return HttpResponseRedirect('/')
+                response = HttpResponseRedirect('/')
+                response = setCookies(response, request, user)
+                return response
             else:
                 return HttpResponse("не туда")
         elif "log" in request.POST:
@@ -144,7 +165,9 @@ def product_view(request):
                 password = formLog.cleaned_data.get("password")
                 user = authenticate(username=username, password=password)
                 login(request, user)
-                return HttpResponseRedirect('/')
+                response = HttpResponseRedirect('/')
+                response = setCookies(response, request, user)
+                return response
     else:
         formReg = UserForm();
         formLog = UserLoginForm();
@@ -153,7 +176,6 @@ def product_view(request):
     types = PizzaType.objects.all()
     profPic, bol = get_profile_photo(request)
     cart = Basket.objects.all().filter(user_id=request.user.id)
-
     return render(request, 'product.html', {'products': products,
                                             'types': types,
                                             'profPic' : profPic,
@@ -233,7 +255,6 @@ def modalproduct(request, product_id):
     return render(request, 'modal-product.html', {'modal_product': modal_product})
 
 def make_order(request):
-    print(1231)
     prof = Profile.objects.get(user=request.user)
     basket = Basket.objects.filter(user_id=prof)
     order = Order.objects.create(user_id=prof)
@@ -247,3 +268,7 @@ def make_order(request):
     order.save()
     basket.delete()
     return HttpResponseRedirect(request.META['HTTP_REFERER'])
+
+def ajax_resp(request):
+    json = {'text': 'some information'}
+    return JsonResponse(json)

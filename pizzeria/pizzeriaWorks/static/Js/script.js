@@ -15,6 +15,7 @@ function getCookie(name) {
 };
 document.addEventListener('DOMContentLoaded', function() {
 
+
     let modalButtons = document.querySelectorAll('.popUpBtn'),
         overlay      = document.querySelector('#overlay-modal'),
         closeButtons = document.querySelectorAll('.cross');

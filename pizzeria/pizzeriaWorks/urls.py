@@ -18,6 +18,8 @@ urlpatterns = [
     path('baskets/remove/<int:product_id>', views.basket_remove, name='basket_remove'),
     path('modal-product/<int:product_id>/', views.modalproduct, name='modal-product'),
     path('user/make-order', views.make_order, name='make-order'),
+    path('setCookies', views.setCookies),
+    path('ajax/resp', views.ajax_resp)
 ]
 
 if settings.DEBUG:

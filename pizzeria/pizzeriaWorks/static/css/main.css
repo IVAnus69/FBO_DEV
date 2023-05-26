@@ -648,3 +648,14 @@ header a {
 	display: flex;
 	justify-content: space-between;
 }
+
+.attention {
+	display: none;
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.8);
+	margin: auto;
+	z-index: 100;
+
+}
