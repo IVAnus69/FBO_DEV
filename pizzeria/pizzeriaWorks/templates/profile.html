@@ -51,6 +51,12 @@
 		</div>
 	</footer>
 <h1>Привет, {{ user.get_username }}</h1>
+
+{% load cache %}
+{% cache 60 about %}
+<p>Нас уже {{ user_counter }} человек!</p>
+{% endcache %}
+
 {% if bol is False %}
 <img src="{{ profPic }}" width="100px"><br>
 {% else %}

@@ -33,6 +33,11 @@ def index(request):
 def update_user_data(user):
     Profile.objects.update_or_create(user=user)#, profilePic=user.profilePic)
 
+
+def about(request):
+    user_count = User.objects.all().count()
+    return user_count
+
 def setCookies(response, request, user):
     profileCheck = Profile.objects.get(user=user)
     response.set_cookie("username", profileCheck.user.username)
@@ -119,11 +124,13 @@ def profile(request):
             profPic = prof.profilePic
             bol = True
         username = request.COOKIES["username"]
+        user_counter = about(request)
         # print(profPic)
         return render(request, 'profile.html', {'profPic': profPic,
                                                 'username': username,
                                                 'bol': bol,
-                                                'form': form})
+                                                'form': form,
+                                                'user_counter': user_counter})
 
 
 
