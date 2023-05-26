@@ -19,7 +19,8 @@ urlpatterns = [
     path('modal-product/<int:product_id>/', views.modalproduct, name='modal-product'),
     path('user/make-order', views.make_order, name='make-order'),
     path('setCookies', views.setCookies),
-    path('ajax/resp', views.ajax_resp)
+    path('ajax/resp', views.ajax_resp),
+    path('user/orders', views.view_order, name='view_orders')
 ]
 
 if settings.DEBUG:

@@ -76,4 +76,5 @@
     {% csrf_token %}
     <button type="submit" name="deleteButton">Удалить страницу</button>
 </form>
+<a href="{% url 'view_orders' %}">Посмотреть заказы</a>
 {% endblock content %}

@@ -1,0 +1,28 @@
+{% extends 'navbar.html'%}
+
+{% block content %}
+<div class="orders">
+    {% for order, order_items in data %}
+        <div class="order_block">
+        <div class="order_id">Номер заказа: {{order.id}}</div>
+        <div class="order_main">
+        <div>Состав заказа:</div>
+            <div class="items_block">
+            {% for order_item in order_items %}
+            <div class="item_object">
+                <div class="item_info">
+                    <div class="item_name">{{order_item.pizza_id.name}}</div>
+                    <div class="item_count">Количество: {{order_item.count}}</div>
+                    <div class="item_price">Цена: {{order_item.sum}} ₽</div>
+                </div>
+                <div class="item_img"><img src="{{ order_item.pizza_id.img.url}}" alt=""></div>
+            </div>
+            {% endfor %}
+            </div>
+        </div>
+        <div class="order_price">Общая сумма заказа: {{order.sum}} ₽</div>
+        </div>
+    <div class="order_sep"></div>
+    {% endfor %}
+</div>
+{% endblock content %}

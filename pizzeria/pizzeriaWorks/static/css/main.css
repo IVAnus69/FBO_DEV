@@ -659,3 +659,39 @@ header a {
 	z-index: 100;
 
 }
+
+.order_block {
+	display: flex;
+	justify-content: center;
+	margin: 20px;
+}
+
+.order_id {
+	width: 30%;
+	text-align: end;
+	margin-right: 25px;
+}
+
+.order_main {
+	width: 30%;
+}
+
+.order_price {
+	display: flex;
+	width: 30%;
+	align-items: flex-end;
+}
+
+.order_sep {
+	border-bottom: 1px solid gray;
+}
+
+.item_object {
+	display: flex;
+	justify-content: space-evenly;
+}
+
+.item_img img {
+	width: 100px;
+	height: 100px;
+}

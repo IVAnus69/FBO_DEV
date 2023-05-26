@@ -248,9 +248,7 @@ def basket_remove(request, product_id):
         basket = baskets.first()
         basket.count -= 1
         basket.save()
-        print(321)
     else:
-        print(123)
         baskets.delete()
 
     return HttpResponseRedirect(request.META['HTTP_REFERER'])
@@ -258,7 +256,6 @@ def basket_remove(request, product_id):
 def modalproduct(request, product_id):
     modal_product = get_object_or_404(Pizza, id=product_id)
     print(modal_product)
-    print(12312)
     return render(request, 'modal-product.html', {'modal_product': modal_product})
 
 def make_order(request):
@@ -279,3 +276,17 @@ def make_order(request):
 def ajax_resp(request):
     json = {'text': 'some information'}
     return JsonResponse(json)
+
+def view_order(request):
+    prof = Profile.objects.get(user=request.user)
+    orders = Order.objects.filter(user_id=prof)
+    data = []
+    for order in orders:
+        order_items = Order_Item.objects.filter(order_id=order)
+        data.append([order, order_items])
+
+    data = data[::-1]
+    profPic, bol = get_profile_photo(request)
+    return render(request, 'orders.html', {'data': data,
+                                           'profPic': profPic,
+                                           'bol': bol})

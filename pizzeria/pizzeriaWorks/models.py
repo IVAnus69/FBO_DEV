@@ -58,8 +58,18 @@ class Order(models.Model):
     id = models.AutoField('ID', primary_key=True)
     user_id = models.ForeignKey(Profile, on_delete=models.CASCADE)
 
+    def sum(self):
+        order_items = Order_Item.objects.filter(order_id=self)
+        s = 0
+        for order_item in order_items:
+            s += order_item.pizza_id.price
+        return s
+
 class Order_Item(models.Model):
     pizza_id = models.ForeignKey(Pizza, on_delete=models.CASCADE)
     order_id = models.ForeignKey(Order, on_delete=models.CASCADE)
     count = models.IntegerField('Количество')
+
+    def sum(self):
+        return self.count * self.pizza_id.price
 
