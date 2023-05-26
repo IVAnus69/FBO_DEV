@@ -183,6 +183,15 @@ def product_view(request):
     types = PizzaType.objects.all()
     profPic, bol = get_profile_photo(request)
     cart = Basket.objects.all().filter(user_id=request.user.id)
+    data = []
+    for prod in products:
+        has = False
+        for c in cart:
+            if prod.name == c.pizza_id.name:
+                data.append([prod, c.count])
+                has = True
+        if not has:
+            data.append([prod, 0])
     return render(request, 'product.html', {'products': products,
                                             'types': types,
                                             'profPic' : profPic,
@@ -190,7 +199,8 @@ def product_view(request):
                                             'formReg': formReg,
                                             'formLog': formLog,
                                             'cart': cart,
-                                            'total_sum': sum(basket.sum() for basket in cart)})
+                                            'total_sum': sum(basket.sum() for basket in cart),
+                                            'data': data})
 
 
 def product_detail_view(request, pk):

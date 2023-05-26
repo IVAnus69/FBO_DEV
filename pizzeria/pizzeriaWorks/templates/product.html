@@ -302,8 +302,13 @@
 							<h3>{{ product.price }} ₽</h3>
 							<div class="product_change">
 								<a href="{% url 'basket_remove' product.id%}" class="btn-">-</a>
-								<div class="quantity"></div>
+								{% for prod, count in data %}
+								{% if prod.name == product.name%}
+								<div class="quantity">{{count}}</div>
+								{% endif %}
+								{% endfor %}
 								<a href="{% url 'basket_add' product.id%}" class="btn+">+</a>
+							</div>
 						</div>
 					</li>
 					{% endif %}
