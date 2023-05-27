@@ -1,0 +1,87 @@
+html{
+    background: url('/media/pizzaImages/background.jpg') no-repeat center top / cover;
+}
+
+.good{
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0;
+	margin-top: 5%;
+}
+
+.good_body{
+    display: inline-block;
+	width: 800px;
+	background: linear-gradient(143.02deg, #131313 17.02%, #000000 69.78%);
+	border-radius: 20px;
+	align-items: center;
+	vertical-align: center;
+	min-height: 100%;
+}
+
+.good_content{
+	display: flex;
+	padding-top: 36px;
+	margin-left: 28px;
+	text-align: left;
+
+}
+
+.good_characteristics h2{
+	font-weight: 500;
+	font-size: 24px;
+}
+
+.good_characteristics div {
+	width: 400px;
+	border: 1px solid #454545;
+	margin-top: 8px;
+}
+
+.good_characteristics p {
+	font-weight: 400;
+	font-size: 18px;
+}
+
+.good_characteristics li {
+	font-weight: 500;
+	font-size: 22px;
+	margin-top: 8px;
+}
+
+.good_main{
+	margin-left: 63px;
+	display: inline-block;
+	text-align: center;
+    vertical-align: middle;
+}
+
+.good_main h1{
+	font-weight: 600;
+	font-size: 36px;
+}
+
+.good_main img{
+	margin-top: 20px;
+	width: 250px;
+	height: 250px;
+}
+
+.good_main button {
+	width: 156px;
+	height: 43px;
+	background: #810000;
+	border-radius: 10px;
+	font-family: 'Montserrat';
+	color: #FFFFFF;
+	font-weight: 500;
+	font-size: 20px;
+	border: 0;
+	margin-top: 24px;
+	margin-bottom: 25px;
+}
+
+.good_cross {
+	margin-right: 25px;
+}

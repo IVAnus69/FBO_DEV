@@ -13,7 +13,7 @@
 						<a href="/">Меню</a>
 					</li>
 					<li>
-						<a href="#">О нас</a>
+						<a href="/about/">О нас</a>
 					</li>
 					<li>
 						<a href="tel:+79504182020"><img href="tel:+79504182020" src='/media/pizzaImages/icon-phone.svg' alt=""></a>
@@ -27,19 +27,20 @@
 
 
 
-
-				{% if user.is_authenticated %}
-				{% if bol is False %}
-				<a href="/profile/"><img src="{{profPic}}" width="60px" alt="RussianPizza" class="avatar"></a>
-				<a href="/logout/"><img src="/media/pizzaImages/icon-door.svg" alt=""></a>
-				{% else %}
-				<a href="/profile/"><img src="{{ profPic.url }}" width="60px" alt="RussianPizza" class="avatar"></a>
-				<a href="/logout/"><img src="/media/pizzaImages/icon-door.svg" alt=""></a>
-				{% endif %}
-				{% else %}
-				<a class="popUpBtn" id="reg" href="">Регистрация</a> |
-				<a class="popUpBtn" id="log" href="" >Войти</a>
-				{% endif %}
+				<div class="profile_button">
+					{% if user.is_authenticated %}
+					{% if bol is False %}
+					<a href="/profile/"><img src="{{profPic}}" width="60px" alt="RussianPizza" class="avatar"></a>
+					<a href="/logout/"><img src="/media/pizzaImages/icon-door.svg" alt=""></a>
+					{% else %}
+					<a href="/profile/"><img src="{{ profPic.url }}" width="60px" alt="RussianPizza" class="avatar"></a>
+					<a href="/logout/"><img src="/media/pizzaImages/icon-door.svg" alt=""></a>
+					{% endif %}
+					{% else %}
+					<a class="popUpBtn" id="reg" href="">Регистрация</a> |
+					<a class="popUpBtn" id="log" href="" >Войти</a>
+					{% endif %}
+				</div>
 			</div>
         </div>
     </header>

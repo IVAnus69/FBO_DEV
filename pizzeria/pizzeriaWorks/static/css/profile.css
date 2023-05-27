@@ -58,19 +58,21 @@ header a {
 }
 
 .name {
-	position: absolute;
 	text-align: center;
-	margin-left: 574px;
 	margin-top: 5px;
 }
 
 .logo {
 	padding-top: 10px;
-	margin-right: 360px;
+	margin-right: -30px;
 }
 
 .tel {
 	margin-left: 5px;
+}
+
+.profile_button{
+	margin-left: auto;
 }
 
 .avatar {
@@ -148,6 +150,10 @@ header a {
 }
 
 .left_side input {
+
+}
+
+.nick_change, .mail_change, .password_change, .avatar_button {
 	display: flex;
 	width: 373px;
 	height: 40px;

@@ -46,44 +46,7 @@
 		</div>
 	</div>
 
-	<div class="good" id="productModal">
-		<div class="good_body">
-			<div class="good_content">
-				<div class="good_characteristics">
 
-					<h2>Характеристики:</h2>
-					<div class=""></div>
-					<p>Оч вкусная брат</p>
-
-					<ul>
-						<li>
-							Цена: 640р.
-						</li>
-						<li>
-							Размер: 30см.
-						</li>
-						<li>
-							Начинка: Водка, рассол, твоя мама.
-						</li>
-						<li>
-							Тесто: тонкое
-						</li>
-					</ul>
-
-				</div>
-
-				<div class="good_main">
-
-					<h1>Русская</h1>
-					<img src="img/pizza-russian.svg" alt="">
-					<button>Добавить</button>
-
-				</div>
-
-				<a href="" class="good_cross"><img src="img/cross.svg" alt=""></a>
-			</div>
-		</div>
-	</div>
 
 <div class="popup" id="popUpReg">
 
@@ -143,6 +106,8 @@
 		<img src="/media/pizzaImages/upward.svg" alt="">
 	</div>
 
+
+
 	<header id="header" class="header">
 		<div class="container">
 
@@ -153,7 +118,7 @@
 						<a href="/">Меню</a>
 					</li>
 					<li>
-						<a href="#">О нас</a>
+						<a href="/about/">О нас</a>
 					</li>
 					<li>
 						<a href="tel:+79504182020"><img href="tel:+79504182020" src='/media/pizzaImages/icon-phone.svg' alt=""></a>
@@ -167,19 +132,20 @@
 
 
 
-
-				{% if user.is_authenticated %}
-				{% if bol is False %}
-				<a href="/profile/"><img src="{{profPic}}" width="60px" alt="RussianPizza" class="avatar"></a>
-				<a href="/logout/"><img src="/media/pizzaImages/icon-door.svg" alt=""></a>
-				{% else %}
-				<a href="/profile/"><img src="{{ profPic.url }}" width="60px" alt="RussianPizza" class="avatar"></a>
-				<a href="/logout/"><img src="/media/pizzaImages/icon-door.svg" alt=""></a>
+				<div class="profile_button">
+					{% if user.is_authenticated %}
+					{% if bol is False %}
+					<a href="/profile/"><img src="{{profPic}}" width="60px" alt="RussianPizza" class="avatar"></a>
+					<a href="/logout/"><img src="/media/pizzaImages/icon-door.svg" alt=""></a>
+					{% else %}
+					<a href="/profile/"><img src="{{ profPic.url }}" width="60px" alt="RussianPizza" class="avatar"></a>
+					<a href="/logout/"><img src="/media/pizzaImages/icon-door.svg" alt=""></a>
+					{% endif %}
+					{% else %}
+					<a class="popUpBtn" id="reg" href="">Регистрация</a> |
+					<a class="popUpBtn" id="log" href="" >Войти</a>
 				{% endif %}
-				{% else %}
-				<a class="popUpBtn" id="reg" href="">Регистрация</a> |
-				<a class="popUpBtn" id="log" href="" >Войти</a>
-				{% endif %}
+				</div>
 			</div>
 
 			<div class="slogan">

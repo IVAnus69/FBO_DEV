@@ -20,7 +20,8 @@ urlpatterns = [
     path('user/make-order', views.make_order, name='make-order'),
     path('setCookies', views.setCookies),
     path('ajax/resp', views.ajax_resp),
-    path('user/orders', views.view_order, name='view_orders')
+    path('user/orders', views.view_order, name='view_orders'),
+    path('about/', views.about_page)
 ]
 
 if settings.DEBUG:

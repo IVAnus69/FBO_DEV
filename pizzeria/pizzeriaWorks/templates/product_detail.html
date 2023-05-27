@@ -3,16 +3,35 @@
 {% block title %} {{ product.name }} {% endblock %}
 
 {% block content %}
-    <h1>{{ product.name }}</h1>
 
-    <div class="product">
-        <img src='{{ product.img.url }}' alt="{{ product.name }}">
-        <p>{{ product.description }}</p>
-        <p>Цена: {{ product.price }} руб.</p>
-        {% for spec in product_spec %}
-        <p>{{spec.title}} : {{spec.description}}</p>
-        {% endfor %}
-        <button>Купить</button>
-        <a href="/product/delete/{{product.id}}/"><button>Удалить</button></a>
-    </div>
+    <div class="good">
+		<div class="good_body">
+			<div class="good_content">
+				<div class="good_characteristics">
+
+					<h2>Характеристики:</h2>
+					<div class=""></div>
+					<p>{{ product.description }}</p>
+
+					<ul>
+						<li>Цена: {{ product.price }}р</li>
+						{% for spec in product_spec %}
+						<li>{{spec.title}} : {{spec.description}}</li>
+						{% endfor %}
+					</ul>
+
+				</div>
+
+				<div class="good_main">
+
+					<h1>{{ product.name }}</h1>
+					<img src='{{ product.img.url }}' alt="{{ product.name }}">
+					<button>Добавить</button>
+
+				</div>
+
+				<a href="" class="good_cross"><img src="img/cross.svg" alt=""></a>
+			</div>
+		</div>
+	</div>
 {% endblock %}

@@ -15,10 +15,19 @@
 			<div class="profile_data">
 
 				<div class="left_side">
-					<input class="nick_change" placeholder="Сменить ник"></input>
-					<input class="mail_change" placeholder="Сменить почту"></input>
-					<input class="password_change" placeholder="Сменить пароль"></input>
-					<button class="avatar_button">Сменить фото</button>
+					{% load cache %}
+					{% cache 60 about %}
+					<p>Нас уже {{ user_counter }} человек!</p>
+					{% endcache %}
+					<form method="POST" enctype="multipart/form-data" name="first">
+						{% csrf_token %}
+						{% for field in form %}
+							<p>
+							{{ field }}
+							</p>
+						{% endfor %}
+						<button type="submit" name="saveButton">Сохранить</button>
+					</form>
 				</div>
 
 				<div class="right_side">
@@ -31,14 +40,8 @@
 					<h3 class="mail">{{user.email}}u</h3>
 				</div>
 
-			</div>
-
-			<div class="buttons">
-				<a href="/logout/" class="save">Сохранить изменения</a>
-				<a href="/logout/" class="exit">Выйти</a>
-			</div>
-
 		</div>
+			<a href="{% url 'view_orders' %}">Посмотреть заказы</a>
 	</section>
 
 	<footer class="footer">
@@ -50,31 +53,8 @@
 			</p>
 		</div>
 	</footer>
-<h1>Привет, {{ user.get_username }}</h1>
 
-{% load cache %}
-{% cache 60 about %}
-<p>Нас уже {{ user_counter }} человек!</p>
-{% endcache %}
 
-{% if bol is False %}
-<img src="{{ profPic }}" width="100px"><br>
-{% else %}
-<img src="{{ profPic.url }}" width="100px"><br>
-{% endif %}
-<form method="POST" enctype="multipart/form-data" name="first">
-    {% csrf_token %}
-    {% for field in form %}
-        <p>
-        {{ field.label_tag }}<br>
-        {{ field }}
-        </p>
-    {% endfor %}
-    <button type="submit" name="saveButton">Сохранить</button>
-</form>
-<form method="POST" name="second">
-    {% csrf_token %}
-    <button type="submit" name="deleteButton">Удалить страницу</button>
-</form>
-<a href="{% url 'view_orders' %}">Посмотреть заказы</a>
+
+
 {% endblock content %}

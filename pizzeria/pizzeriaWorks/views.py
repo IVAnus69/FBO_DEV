@@ -300,3 +300,9 @@ def view_order(request):
     return render(request, 'orders.html', {'data': data,
                                            'profPic': profPic,
                                            'bol': bol})
+
+
+def about_page(request):
+    profPic, bol = get_profile_photo(request)
+    return render(request, 'about.html', {'profPic': profPic,
+                                          'bol': bol})
